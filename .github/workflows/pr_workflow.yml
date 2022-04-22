@@ -4,8 +4,9 @@ on:
   pull_request:
     branches:
       - main
+      - development
       - release/*
-      - staging      
+      - staging
 
 jobs:
   laravel-tests:
