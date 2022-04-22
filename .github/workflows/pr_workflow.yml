@@ -21,6 +21,11 @@ jobs:
         ports:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
@@ -43,6 +48,13 @@ jobs:
         DB_DATABASE: database/database.mysql
         DB_PORT: ${{ job.services.mysql.ports[3306] }}
       run: vendor/bin/phpunit
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run prod --if-present
     - name: Execute tests (Unit and Feature tests) via JEST
-      run: node_modules/.bin/jest
+    - run: npm test --if-present
     
