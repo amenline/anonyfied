@@ -59,8 +59,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run prod --if-present
+      run: npm ci
+      run: npm run prod --if-present
     - name: Execute tests (Unit and Feature tests) via JEST
-    - run: npm test --if-present
+      run: npm test --if-present
     
