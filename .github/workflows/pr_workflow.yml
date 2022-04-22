@@ -1,6 +1,12 @@
 name: Laravel
 
 on:
+  push:
+    branches:
+      - main
+      - development
+      - release/*
+      - staging
   pull_request:
     branches:
       - main
