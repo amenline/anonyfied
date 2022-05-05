@@ -13,6 +13,10 @@ on:
       - release/development
 
 jobs:
+  see-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{github.ref}}
   laravel-tests:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/"release/staging"'
